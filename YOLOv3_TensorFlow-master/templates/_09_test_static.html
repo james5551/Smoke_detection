@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>实现需求3.4</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("button#button_1").click(function(){
+                    var formData = new FormData($("#upload_form")[0]);
+                    $.ajax({
+                        url: "/get_image",
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(return_data){
+                            $("img#image_1").attr("src", return_data['src'])
+                            },
+                        error: function(return_data){
+                            alert("上传失败!")
+                            }
+                        })   
+                    });
+                }); 
+        </script>
+    </head>
+    
+    <body>
+        <form id="upload_form" enctype="multipart/form-data">
+            <input type="text" name="fileName" value="013.jpg"/>
+        </form>
+        <div>
+            <img src="" id="image_1"/>
+        </div>
+        <button id="button_1">显示服务端中此路径表示的图片</button>
+    </body>
+</html>
